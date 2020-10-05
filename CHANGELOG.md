@@ -1,3 +1,7 @@
+## [1.0.1] - October 5, 2020.
+
+* Update test
+
 ## [1.0.0] - October 5, 2020.
 
 * Update readme

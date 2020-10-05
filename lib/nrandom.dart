@@ -14,19 +14,29 @@ import 'dart:math';
 ///
 class NRandom {
   NRandom(this._length, [this._decreaseFactor = 5]) {
-    final double probability = 100 / _length;
-    probabilities = List<double>.filled(_length, probability);
+    if(_length > 0) {
+      final double probability = 100 / _length;
+      probabilities = List<double>.filled(_length, probability);
+    }
   }
 
   // Length of index array
-  final int _length;
+  int _length;
 
   // A factor to update _probabilities after generate new index
   // Default = 5 (decrease 100/5 = 20%)
-  final int _decreaseFactor;
+  int _decreaseFactor;
 
   // Probabilities of index array
   List<double> probabilities;
+
+  // Init with new length and factor
+  void init(int length, [int decreaseFactor = 5]) {
+    this._length = length;
+    this._decreaseFactor = decreaseFactor;
+    final double probability = 100 / _length;
+    probabilities = List<double>.filled(_length, probability);
+  }
 
   // Return random index
   int getNextIndex() {
