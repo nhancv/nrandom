@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nrandom/nrandom.dart';
 
 void main() {
-
   test('Test init', () {
     // Arrange
     final NRandom nrandom = NRandom(1);
