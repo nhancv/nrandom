@@ -14,7 +14,7 @@ import 'dart:math';
 ///
 class NRandom {
   NRandom(this._length, [this._decreaseFactor = 5]) {
-    if(_length > 0) {
+    if (_length > 0) {
       final double probability = 100 / _length;
       probabilities = List<double>.filled(_length, probability);
     }
