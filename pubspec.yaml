@@ -1,6 +1,6 @@
 name: nrandom
-description: Random index in array
-version: 1.0.3
+description: Index random generator, return a index with customizable probability.
+version: 1.0.4
 homepage: https://github.com/nhancv/nrandom
 
 environment:

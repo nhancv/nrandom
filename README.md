@@ -1,6 +1,6 @@
 # nrandom
 
-Return random a probability index
+Index random generator, return a index with customizable probability.
 
 ```
 Ex: length = 5
