@@ -13,10 +13,17 @@ import 'dart:math';
 /// 13.75%  26.25%  11.25%  26.25%  26.25%
 ///
 class NRandom {
-  NRandom(this._length, [this._decreaseFactor = 5]) {
+  NRandom(this._length,
+      [this._decreaseFactor = 5, List<double> probabilities]) {
     if (_length > 0) {
       final double probability = 100 / _length;
-      probabilities = List<double>.filled(_length, probability);
+      if (probabilities == null) {
+        this.probabilities = List<double>.filled(_length, probability);
+      } else {
+        this.probabilities = probabilities;
+      }
+    } else {
+      throw ArgumentError('length must > 0');
     }
   }
 
@@ -27,25 +34,36 @@ class NRandom {
   // Default = 5 (decrease 100/5 = 20%)
   int _decreaseFactor;
 
-  // Probabilities of index array
+  /// Probabilities of index array
   List<double> probabilities;
 
-  // Init with new length and factor
-  void init(int length, [int decreaseFactor = 5]) {
-    this._length = length;
-    this._decreaseFactor = decreaseFactor;
-    final double probability = 100 / _length;
-    probabilities = List<double>.filled(_length, probability);
+  /// Init with new length and factor
+  void init(int length, [int decreaseFactor = 5, List<double> probabilities]) {
+    if (length > 0) {
+      this._length = length;
+      this._decreaseFactor = decreaseFactor;
+      final double probability = 100 / _length;
+      if (probabilities == null) {
+        this.probabilities = List<double>.filled(_length, probability);
+      } else {
+        this.probabilities = probabilities;
+      }
+    } else {
+      throw ArgumentError('length must > 0');
+    }
   }
 
-  // Return random index
+  /// Return random index
   int getNextIndex() {
     if (_length == 0) {
       return -1;
+    } else if (_length == 1) {
+      return 0;
     }
 
     final double r = Random().nextDouble();
-    // Find index
+
+    /// Find index
     double s = 0;
     int index = 0;
     for (int i = 0; i < _length; i++) {
@@ -57,10 +75,12 @@ class NRandom {
       s += p;
     }
 
-    // Update probabilities;
-    // Decrease probability of index number
-    final double x = probabilities[index] / _decreaseFactor;
-    // Increase probability of all remaining numbers
+    /// Update probabilities;
+    /// Decrease probability of index number
+    final double x =
+        _decreaseFactor == 0 ? 0 : (probabilities[index] / _decreaseFactor);
+
+    /// Increase probability of all remaining numbers
     final double y = (probabilities[index] - x) / (_length - 1);
     for (int i = 0; i < _length; i++) {
       if (i == index) {
